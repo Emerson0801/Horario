@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horários Mundiais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #282c36;
+            color: white;
+            position: relative;
+        }
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+        .map {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .clock {
+            position: absolute;
+            font-size: 16px;
+            padding: 6px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+        #melbourne { top: 70%; left: 80%; }
+        #dubai { top: 40%; left: 70%; }
+        #shanghai { top: 30%; left: 75%; }
+        #orlando { top: 35%; left: 20%; }
+        #brasilia { top: 55%; left: 35%; }
+        #bogota { top: 50%; left: 15%; }
+        #assuncao { top: 60%; left: 20%; }
+        #buenosaires { top: 65%; left: 32%; }
+        #santiago { top: 70%; left: 14%; }
+        #puntaarenas { top: 75%; left: 16%; }
+    </style>
+</head>
+<body>
+    <h1>Horários Mundiais</h1>
+    <div class="map-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt="Mapa mundi" class="map">
+        <div class="clock" id="melbourne"></div>
+        <div class="clock" id="dubai"></div>
+        <div class="clock" id="shanghai"></div>
+        <div class="clock" id="orlando"></div>
+        <div class="clock" id="brasilia"></div>
+        <div class="clock" id="bogota"></div>
+        <div class="clock" id="assuncao"></div>
+        <div class="clock" id="buenosaires"></div>
+        <div class="clock" id="santiago"></div>
+        <div class="clock" id="puntaarenas"></div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const timeZones = {
+                "melbourne": "Australia/Melbourne",
+                "dubai": "Asia/Dubai",
+                "shanghai": "Asia/Shanghai",
+                "orlando": "America/New_York",
+                "brasilia": "America/Sao_Paulo",
+                "bogota": "America/Bogota",
+                "assuncao": "America/Asuncion",
+                "buenosaires": "America/Argentina/Buenos_Aires",
+                "santiago": "America/Santiago",
+                "puntaarenas": "America/Punta_Arenas"
+            };
+
+            for (let city in timeZones) {
+                const time = new Intl.DateTimeFormat('pt-BR', {
+                    timeZone: timeZones[city],
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }).format(new Date());
+                document.getElementById(city).textContent = `${city.charAt(0).toUpperCase() + city.slice(1)}: ${time}`;
+            }
+        }
+        
+        setInterval(updateTime, 60000);
+        updateTime();
+    </script>
+</body>
+</html>
